@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: psl-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pslapp
+  template:
+    metadata:
+      labels:
+        app: pslapp
+    spec:
+      containers:
+      - name: psl-container
+        image: myuser/myapp:latest
+        ports:
+        - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: psl-service
+spec:
+  selector:
+    app: psl-service
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: LoadBalancer

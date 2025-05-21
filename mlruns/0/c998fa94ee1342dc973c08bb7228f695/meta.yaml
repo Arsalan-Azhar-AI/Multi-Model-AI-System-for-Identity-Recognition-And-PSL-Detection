@@ -1,0 +1,15 @@
+artifact_uri: file:///workspaces/End-to-End-Gender-Classification-project/mlruns/0/c998fa94ee1342dc973c08bb7228f695/artifacts
+end_time: 1736319626575
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c998fa94ee1342dc973c08bb7228f695
+run_name: useful-gull-955
+run_uuid: c998fa94ee1342dc973c08bb7228f695
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1736319564355
+status: 4
+tags: []
+user_id: codespace
