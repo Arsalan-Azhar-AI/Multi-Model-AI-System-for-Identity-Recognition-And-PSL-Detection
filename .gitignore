@@ -172,3 +172,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+celeba-dataset.zip/*
+artifacts/data_ingestion
