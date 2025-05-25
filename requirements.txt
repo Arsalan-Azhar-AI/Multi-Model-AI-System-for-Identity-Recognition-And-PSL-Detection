@@ -18,4 +18,6 @@ kaggle
 opencv-python
 Pillow
 mlflow==2.2.2
+ultralytics
+mediapipe
 -e .
