@@ -1,23 +1,49 @@
-FROM ultralytics/ultralytics:latest
+# Base image with GPU support for TensorFlow and YOLOv8
+FROM nvidia/cuda:12.2.0-cudnn8-runtime-ubuntu22.04
+
+# Set environment
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+
+# Install Python and basic tools
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip git && \
+    ln -sf /usr/bin/python3 /usr/bin/python && \
+    pip install --upgrade pip
 
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies (if needed)
-RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
-    libsm6 \
-    libxext6 \
-    && rm -rf /var/lib/apt/lists/*
-
 # Copy requirements file
 COPY requirements.txt .
 
-# Install remaining Python dependencies (YOLOv8 is already included)
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies
+RUN pip install --no-cache-dir \
+    tensorflow \
+    pandas \
+    dvc \
+    notebook \
+    numpy \
+    matplotlib \
+    seaborn \
+    python-box==6.0.2 \
+    pyYAML \
+    tqdm \
+    ensure==1.0.2 \
+    joblib \
+    types-PyYAML \
+    scipy \
+    Flask \
+    Flask-Cors \
+    kaggle \
+    opencv-python \
+    Pillow \
+    mlflow==2.2.2 \
+    ultralytics \
+    mediapipe
 
-# Copy your source code
-COPY . /app
+# Copy rest of the code
+COPY . .
 
-# Run the app
-CMD ["python3", "app.py"]
+# Default command
+CMD ["python", "main.py"]
