@@ -55,13 +55,13 @@ D --> E[Web UI - Real-time PSL Display]
 Below are the visual evaluation metrics from the trained YOLOv8 model:
 
 ### 📊 Confusion Matrix
-![Confusion Matrix](assets/PSL_COnfusion_matrix)
+![Confusion Matrix](assets/PSL_COnfusion_matrix.png)
 
 ### 📊 Class Labels Distribution
-![Labels Distribution](assets/PSL_Label)
+![Labels Distribution](assets/PSL_Label.jpeg)
 
 ### 📊 YOLOv8 Evaluation Results
-![YOLOv8 Results](assets/PSL_Results)
+![YOLOv8 Results](assets/PSL_Results.png)
 
 ---
 
