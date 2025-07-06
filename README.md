@@ -48,8 +48,22 @@ D --> E[Web UI - Real-time PSL Display]
 | VGG16  | 94%      | Face Verification |
 | YOLOv8 | 98%      | PSL Detection     |
 
-![Confusion Matrix](assets/confusion_matrix.png)
-![Validation Curve](assets/val_accuracy_loss.png)
+---
+
+## 📈 Model Evaluation
+
+Below are the visual evaluation metrics from the trained YOLOv8 model:
+
+### 📊 Confusion Matrix
+![Confusion Matrix](assets/PSL_COnfusion_matrix)
+
+### 📊 Class Labels Distribution
+![Labels Distribution](assets/PSL_Label)
+
+### 📊 YOLOv8 Evaluation Results
+![YOLOv8 Results](assets/PSL_Results)
+
+---
 
 ---
 
