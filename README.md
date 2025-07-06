@@ -1,173 +1,216 @@
-# End-to-End-Gender-Classification-project
 
- 
-## Workflows 
+# 🧠 Multi-Model AI System for Identity Recognition and Pakistani Sign Language Detection
 
-1. Update config.yaml
-2. Update secrets.yaml [Optional]
-3. Update params.yaml
-4. Update the entity
-5. Update the configuration manager in src config
-6. Update the components
-7. Update the pipeline
-8. Update the main.py
-9. Update the dvc.yaml
+> A real-time intelligent system combining **Face Verification (VGG16)** and **Pakistani Sign Language (PSL) Detection (YOLOv8)** — designed to enhance accessibility and security through AI-powered assistive technology.
 
+![PSL Demo](assets/psl-demo.gif)
 
-# How to run?
-### STEPS:
+---
 
-Clone the repository
+## 📌 Overview
 
-```bash
-https://github.com/Arsalan-Azhar-AI/End-to-End-Gender-Classification-project
+This project proposes a secure, real-time, and modular AI system integrating:
+- **Facial Verification** using VGG16 for user authentication
+- **PSL Gesture Recognition** using YOLOv8 trained on 13 semantic PSL gestures
+- **Hand Tracking** using MediaPipe for precise visual feedback
+
+The system improves accessibility for the deaf community and ensures authenticated use through biometric face recognition.
+
+---
+
+## 🎯 Key Features
+
+- 🔐 Face verification via pre-trained VGG16 model
+- ✋ PSL gesture detection using YOLOv8 (trained on 6,578 images)
+- 🎥 Real-time gesture tracking using MediaPipe
+- 📈 MLflow for experiment tracking
+- 🌐 Web-based Flask UI for interaction
+- 🚀 CI/CD-ready (Docker, GitHub Actions, AWS/Azure deployment)
+
+---
+
+## 🧠 System Architecture
+
+```mermaid
+graph TD
+A[User Uploads Face Image] --> B[VGG16 Face Verification]
+B -->|Verified| C[YOLOv8 Gesture Detection]
+C --> D[MediaPipe Landmark Tracking]
+D --> E[Web UI - Real-time PSL Display]
+````
+
+---
+
+## 🧪 Model Performance
+
+| Model  | Accuracy | Type              |
+| ------ | -------- | ----------------- |
+| VGG16  | 94%      | Face Verification |
+| YOLOv8 | 98%      | PSL Detection     |
+
+![Confusion Matrix](assets/confusion_matrix.png)
+![Validation Curve](assets/val_accuracy_loss.png)
+
+---
+
+## 📂 Dataset
+
+### 👤 Face Verification
+
+* **Sources**: Custom (friends) + CelebA (male/female)
+* **Classes**: 6 (4 individuals + male/female)
+* **Preprocessing**: Resizing, normalization, augmentation
+
+### 🧤 PSL Detection
+
+* **Source**: [Roboflow](https://universe.roboflow.com/)
+* **Classes**: 13 common PSL signs (e.g., "hello", "rest", "work")
+* **Total Images**: 6,578 (YOLOv8 format)
+
+---
+
+## 🛠️ Technologies Used
+
+| Component           | Tools / Libraries                       |
+| ------------------- | --------------------------------------- |
+| Model Training      | PyTorch, Ultralytics YOLOv8, TensorFlow |
+| Web Interface       | Flask, HTML, CSS, JavaScript            |
+| Hand Tracking       | MediaPipe                               |
+| Experiment Tracking | MLflow                                  |
+| Deployment          | Docker, AWS EC2/ECR, Azure ACR          |
+| Version Control     | Git, GitHub Actions                     |
+
+---
+
+## 📁 Project Structure
+
 ```
-### STEP 01- Create a conda environment after opening the repository
-
-```bash
-conda create -n gencls python=3.11 -y
+📦Multi-Model-AI-System
+├── assets/             # Demo GIFs, screenshots
+├── data/               # Face & PSL datasets
+├── models/             # Saved model weights
+├── src/                # Core ML logic
+│   ├── components/     # Pipeline components
+│   ├── config/         # Config and param YAMLs
+│   ├── utils/          # Helper functions
+├── templates/          # HTML (Flask)
+├── static/             # CSS, JS
+├── app.py              # Main app entry
+├── requirements.txt    
+└── README.md
 ```
 
-```bash
-conda activate gencls
-```
+---
 
+## ▶️ How to Run
 
-### STEP 02- install the requirements
+### 🔧 Setup Environment
+
 ```bash
+# Clone the repo
+git clone https://github.com/Arsalan-Azhar-AI/Multi-Model-AI-System-for-Identity-Recognition-And-PSL-Detection
+cd Multi-Model-AI-System-for-Identity-Recognition-And-PSL-Detection
+
+# Create virtual environment
+conda create -n multimodal-ai python=3.11 -y
+conda activate multimodal-ai
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-# install celebia dataset from kaggle.
-kaggle datasets download -d jessicali9530/celeba-dataset
+### 🧪 Train / Run Models
+
+#### 1. Face Verification (VGG16)
 
 ```bash
-# Finally run the following command
+python main.py
+```
+
+#### 2. PSL Detection (YOLOv8)
+
+```bash
+yolo task=detect mode=train model=yolov8n.pt data=psl.yaml epochs=25 imgsz=640
+```
+
+### 🖥️ Launch Web App
+
+```bash
 python app.py
 ```
 
-Now,
+Then open `http://127.0.0.1:8080/` in browser
+
+---
+
+## 🚀 Deployment (AWS / Azure)
+
+### AWS (EC2 + ECR)
+
+* Build Docker image → Push to ECR
+* Launch EC2 → Pull from ECR → Run container
+
+### Azure (ACR + Web App)
+
 ```bash
-open up you local host and port
+docker build -t psl.azurecr.io/psl-app .
+docker login psl.azurecr.io
+docker push psl.azurecr.io/psl-app
 ```
 
+* Deploy via Azure Portal
 
-### DVC cmd
+> GitHub Actions are preconfigured for CI/CD automation with Docker
 
-1. dvc init
-2. dvc repro
-3. dvc dag
+---
 
+## 📈 Experiment Tracking (MLflow)
 
+```bash
+mlflow ui
+# Visit: http://127.0.0.1:5000
+```
 
-# AWS-CICD-Deployment-with-Github-Actions
+---
 
-## 1. Login to AWS console.
+## 🧩 Future Improvements
 
-## 2. Create IAM user for deployment
+* 🔄 Integrate emotion recognition
+* 🌐 Add multilingual gesture translation
+* 📱 Deploy on mobile (TensorFlow Lite)
+* 📊 Live dashboard with real-time metrics
 
-	#with specific access
+---
 
-	1. EC2 access : It is virtual machine
+## 🙌 Contributors
 
-	2. ECR: Elastic Container registry to save your docker image in aws
-
-
-	#Description: About the deployment
-
-	1. Build docker image of the source code
-
-	2. Push your docker image to ECR
-
-	3. Launch Your EC2 
-
-	4. Pull Your image from ECR in EC2
-
-	5. Lauch your docker image in EC2
-
-	#Policy:
-
-	1. AmazonEC2ContainerRegistryFullAccess
-
-	2. AmazonEC2FullAccess
-
-	
-## 3. Create ECR repo to store/save docker image
-    - Save the URI: 566574675654756.dkr.ecr.us-east-1.amazonaws.com/gender
-
-	
-## 4. Create EC2 machine (Ubuntu) 
-
-## 5. Open EC2 and Install docker in EC2 Machine:
-	
-	
-	#optinal
-
-	sudo apt-get update -y
-
-	sudo apt-get upgrade
-	
-	#required
-
-	curl -fsSL https://get.docker.com -o get-docker.sh
-
-	sudo sh get-docker.sh
-
-	sudo usermod -aG docker ubuntu
-
-	newgrp docker
-	
-# 6. Configure EC2 as self-hosted runner:
-    setting>actions>runner>new self hosted runner> choose os> then run command one by one
+* Muhammad Arsalan Azhar
 
 
-# 7. Setup github secrets:
+---
 
-    AWS_ACCESS_KEY_ID=
+## 📄 License
 
-    AWS_SECRET_ACCESS_KEY=
+This project is licensed under the MIT License.
 
-    AWS_REGION = us-east-1
+---
 
-    AWS_ECR_LOGIN_URI = demo>>  45e7647566592.dkr.ecr.ap-south-1.amazonaws.com
+## 📬 Connect with Me
 
-    ECR_REPOSITORY_NAME = simple-app
-
-
-
-
-# AZURE-CICD-Deployment-with-Github-Actions
-
-## Save pass:
+* GitHub: [@Arsalan-Azhar-AI](https://github.com/Arsalan-Azhar-AI)
+* LinkedIn: [Arsalan Azhar](https://www.linkedin.com/in/arsalanazhar)
 
 
-## Run from terminal:
+---
 
-docker build -t chickenapp.azurecr.io/chicken:latest .
+## 📚 References
 
-docker login chickenapp.azurecr.io
+* [YOLOv8](https://github.com/ultralytics/ultralytics)
+* [CelebA Dataset](https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
+* [Roboflow PSL Dataset](https://universe.roboflow.com/)
+* [MediaPipe Hands](https://google.github.io/mediapipe/solutions/hands.html)
+* [MLflow](https://mlflow.org)
 
-docker push chickenapp.azurecr.io/chicken:latest
-
-
-## Deployment Steps:
-
-1. Build the Docker image of the Source Code
-2. Push the Docker image to Container Registry
-3. Launch the Web App Server in Azure 
-4. Pull the Docker image from the container registry to Web App server and run 
-
-
-# search command for run tensorboard in terminal.
-# and search command for run dvc.
-
-
-
-# run befor runing dvc. if the src path not found by dvc.
-# export PYTHONPATH=$PYTHONPATH:/workspaces/End-to-End-Gender-Classification-project/src
-
-
- 
 
 
 
