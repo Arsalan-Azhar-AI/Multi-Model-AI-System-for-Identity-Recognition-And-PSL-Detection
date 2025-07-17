@@ -3,7 +3,7 @@
 
 > A real-time intelligent system combining **Face Verification (VGG16)** and **Pakistani Sign Language (PSL) Detection (YOLOv8)** — designed to enhance accessibility and security through AI-powered assistive technology.
 
-![PSL Demo](assets/psl-demo.mp4)
+![PSL Demo](assets/psl-demo.mp4.mp4)
 
 ---
 
